@@ -1,6 +1,11 @@
-package ex1;
+package ex1.tests;
 
 import org.junit.jupiter.api.Test;
+
+import ex1.src.WGraph_Algo;
+import ex1.src.node_info;
+import ex1.src.weighted_graph;
+import ex1.src.weighted_graph_algorithms;
 
 import java.util.List;
 
@@ -36,6 +41,7 @@ class WGraph_AlgoTest {
         assertTrue(b);
     }
 
+    
     @Test
     void shortestPathDist() {
         weighted_graph g0 = small_graph();
@@ -98,4 +104,5 @@ class WGraph_AlgoTest {
 
         return g0;
     }
+    
 }

@@ -1,6 +1,8 @@
-package ex1;
+package ex1.src;
 
-public interface node_info {
+import java.io.Serializable;
+
+public interface node_info  {
     /**
      * Return the key (id) associated with this node.
      * Note: each node_data should have a unique key.

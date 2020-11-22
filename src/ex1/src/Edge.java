@@ -1,8 +1,6 @@
-package ex1;
+package ex1.src;
 import java.io.Serializable;
 import java.util.*; 
-
-
 /* 
 Edge class:
 *Contains the inner class that includes the methods in the interface of node_info
@@ -18,9 +16,8 @@ private node_info dest;
 private double weight;
 
 /*
- * Constructor with all the parameters
- *   
- *  */
+* Constructor with all the parameters
+*/
 
 public Edge(double weight,int ksrc,int kdest)
 {
@@ -108,10 +105,9 @@ public void d_setTag(double t)
 }
 /////////////////////////////////
 
-//////////////////
 /*
  * Inner class , private permission
- */	
+*/	
 
  private class node_info
 {

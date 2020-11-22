@@ -1,4 +1,4 @@
-package ex1;
+package ex1.src;
 
 import java.io.Serializable;
 import java.util.*; 
@@ -7,12 +7,13 @@ import java.util.*;
  * The key is the data of the node of the destination.
  * The value is the edge between this node and the destination. 
  * for example :
- * //b.key,a<->b  c.key,b<->c  | Key: e.d_getKey(), Value :Edge
+ *  b.key, a<->b  c.key , b<->c  | Key: e.d_getKey(), Value :Edge
  */
 public class Node implements node_info ,Serializable {
 /*
 * @param Ni = The HashMap of the vertex 
 * @param data = The key number of this vertex
+* @param _weight = weight of this vertex for diajstra algo
 */
 private HashMap<Integer, Edge> Ni ;
 private int data;
@@ -120,13 +121,8 @@ public List<Integer> getNi_k()
 	 }
 	 
 }
-
-	 
-
-
-
-/* i get the unique key of the node that i want to remove
- * and after i remove from the HashMap of my node the entry of the unique key of the remove node  
+/* I get the unique key of the node that i want to remove
+ * I remove from the HashMap of my node the entry of the unique key of the remove node  
  * 
 */
 public void removeNode(node_info node)
@@ -145,11 +141,7 @@ public HashMap<Integer,Edge> getEdgesOf(){
 }
 
 /*
- * Getters and Setter of node_info interface
- */
-
-/*
- * Return the weight of the vertex
+Getters and Setter of node_info interface
  */
 public double getWeight() {
 	return _weight;

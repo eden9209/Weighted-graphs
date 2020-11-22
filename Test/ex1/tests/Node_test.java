@@ -1,10 +1,11 @@
-package ex1;
+package ex1.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import ex1.Edge;
-import ex1.Node;
-import ex1.node_info;
+
+import ex1.src.Edge;
+import ex1.src.Node;
+import ex1.src.node_info;
 
 
 class Nodetest {

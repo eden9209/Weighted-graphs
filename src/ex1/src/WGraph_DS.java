@@ -1,4 +1,4 @@
-package ex1;
+package ex1.src;
 
 import java.io.Serializable;
 import java.util.*;
@@ -15,7 +15,7 @@ public class WGraph_DS implements weighted_graph,Serializable {
 *@param nodes = The HashMap of the graph
 *@param MC = Keep track of the amount of changes (add or remove of node and edge)
 */	
-private HashMap<Integer, node_info> nodes;
+public HashMap<Integer, node_info> nodes;
 private int mc;
 private int edge_size;	
 /*
@@ -32,36 +32,44 @@ this.edge_size=0;
  */
 public WGraph_DS(WGraph_DS other) {
 	nodes = new HashMap<>();
-	for(node_info n: other.nodes.values()) {
+	for(node_info n: other.getNodes().values()) {
 		
-		this.nodes.put(n.getKey(), n);
+		this.getNodes().put(n.getKey(), n);
 	}
 	this.edge_size = other.edge_size;
 	this.mc = other.mc;
 }
 
-
-
-
+/*
+ * use get method of the HashMap 
+ */
 
 public node_info getNode(int key)
 {
-	return nodes.get(key);
+	return getNodes().get(key);
 	
 }
- 
+/*
+ * use hahNi method from Node class , check in the Ni HashMap if the edge exist 
+*/
 public boolean hasEdge(int node1, int node2)
 {
-	Node s=(Node)this.nodes.get(node1);
+	Node s=(Node)this.getNodes().get(node1);
     return s.hasNi(node2);
 	
 } 
 
+/*
+ * if the graph contains the node1 and node 2
+ * we can check in Ni of node1 and if his key is node 2
+ * Remember the key of Ni HashMap is the key of the destination node of the edge ! 
+*/
+
 public double getEdge(int node1, int node2)
 {
-	if(nodes.containsKey(node1) && nodes.containsKey(node2))
+	if(getNodes().containsKey(node1) && getNodes().containsKey(node2))
 	{
-		Node s=(Node) nodes.get(node1);
+		Node s=(Node) getNodes().get(node1);
 		if(s.getEdgesOf().containsKey(node2))
 		{
         				
@@ -79,13 +87,12 @@ public double getEdge(int node1, int node2)
 */ 
 public void addNode(int key)
 {
-		//node_info no = getNode(key);
-	    Node n1 = new Node(key);
+ Node n1 = new Node(key);
 	
-	if(!nodes.containsKey(n1.getKey())) 
+	if(!getNodes().containsKey(n1.getKey())) 
 	{
 	mc++;
-	this.nodes.put(n1.getKey(),n1);
+	this.getNodes().put(n1.getKey(),n1);
 		
 	}
 	else {
@@ -101,12 +108,10 @@ public void addNode(int key)
 */
 public void connect(int node1, int node2, double w)
 {
-	if(nodes.containsKey(node1) && nodes.containsKey(node2) && (node1 != node2))
+	if(getNodes().containsKey(node1) && getNodes().containsKey(node2) && (node1 != node2))
 	{
-		   // Node n1=new Node(node1);
-	    //	Node n2=new Node(node2);
-	    	Node n1 = (Node)nodes.get(node1);
-		   Node n2 = (Node)nodes.get(node2);
+	    	Node n1 = (Node)getNodes().get(node1);
+		   Node n2 = (Node)getNodes().get(node2);
 		
 		if(!n1.hasNi(node2)&&!n2.hasNi(node1))
 		{
@@ -136,20 +141,29 @@ public void connect(int node1, int node2, double w)
  */  
 public Collection<node_info> getV()
 {
-	return this.nodes.values();
+	return this.getNodes().values();
 }
 
 /*
- *  Return all the node_info that come out from this vertex (using the HashMap of this vertex).
+ * Return all the node_info that come out from this vertex (using the HashMap of this vertex).
 */   
 public Collection<node_info> getV(int node_id)
 {
 	Collection<node_info> list=new ArrayList<node_info>();
 	
-	 if(nodes.containsKey(node_id)) 
+	 if(getNodes().containsKey(node_id)) 
 	 {
-	 Node m=(Node)this.nodes.get(node_id);
-	 list=m.getNi();
+	 Node m=(Node)this.getNodes().get(node_id);
+	 if(!m.getEdgesOf().isEmpty() )
+	 {
+	 for(int key: m.getEdgesOf().keySet())
+	 {
+		node_info z=getNode( key) ;
+	    list.add(z);
+	    
+	 }
+	 
+	 }
 	 
 	 }
 	 
@@ -161,9 +175,10 @@ public Collection<node_info> getV(int node_id)
  * 
  * After deleting every edge, we remove the node and update the counters.
  */
+
 public node_info removeNode(int key)
 {
-	if(nodes.containsKey(key))
+	if(getNodes().containsKey(key))
 	{
 		Node n=(Node)getNode(key);
 		
@@ -184,7 +199,7 @@ public node_info removeNode(int key)
 		}
 		
 		 n.getEdgesOf().clear();
-		this.nodes.remove(key);
+		this.getNodes().remove(key);
 		return n;
 		
 		}
@@ -201,10 +216,10 @@ public node_info removeNode(int key)
 */
 public void removeEdge(int node1, int node2)
 {
-	if(nodes.containsKey(node1) && nodes.containsKey(node2))
+	if(getNodes().containsKey(node1) && getNodes().containsKey(node2))
 	{
-		Node n1 = (Node) nodes.get(node1);
-		Node n2 = (Node) nodes.get(node2);
+		Node n1 = (Node) getNodes().get(node1);
+		Node n2 = (Node) getNodes().get(node2);
 
 		if(n1.getEdgesOf().containsKey(node2))
 		{
@@ -239,21 +254,21 @@ public void removeEdge(int node1, int node2)
 public Collection<Edge> getE(int node_id) {
 	Collection<Edge> list=new ArrayList<Edge>();
 	
-	if(nodes.containsKey(node_id))
+	if(getNodes().containsKey(node_id))
 	{
-		Node n=(Node) nodes.get(node_id);
+		Node n=(Node) getNodes().get(node_id);
 		list.addAll(n.getEdgesOf().values());
 	}
 	return list;
 }
-
-
-
-
+/*
+ * Getters and Setters
+ * 
+ */
    
 public int nodeSize()
 {
-	return nodes.size();
+	return getNodes().size();
 }
    
 public int edgeSize()
@@ -265,6 +280,10 @@ public int edgeSize()
 public int getMC()
 {
 	return mc;
+}
+
+public HashMap<Integer, node_info> getNodes() {
+	return nodes;
 }
 
 }

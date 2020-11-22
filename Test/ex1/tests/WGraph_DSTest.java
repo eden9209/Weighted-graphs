@@ -1,15 +1,17 @@
-package ex1;
+package ex1.tests;
 import org.junit.jupiter.api.Test;
+
+import ex1.src.Edge;
+import ex1.src.Node;
+import ex1.src.WGraph_DS;
+import ex1.src.node_info;
+import ex1.src.weighted_graph;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
-import ex1.Edge;
-import ex1.Node;
-import ex1.node_info;
-import ex1.weighted_graph;
-import ex1.WGraph_DS;
 
 class WGraph_DSTest {
     private static Random _rnd = null;
